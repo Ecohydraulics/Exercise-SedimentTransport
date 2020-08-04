@@ -28,17 +28,17 @@ This exercise uses one-dimensional (1D) cross-section averaged hydraulic data pr
 
 ### Sediment transport
 
-Fluvial sediment transport can be distinguished into two modes: (1) suspended load and (2) bed load (see figure below). Finer particles with a weight that can be carried by the fluid (water) are transported as suspended load. Coarser particles rolling, sliding and jumping on the channel bed are transported as bed load. There is another type of transport, the so-called wash load, which is finer than the coarse bed load, but too heavy (large) to be transported in suspension ([Einstein 1950](http://dx.doi.org/10.22004/ag.econ.156389)).
+Fluvial sediment transport can be distinguished into two modes: (1) suspended load and (2) bed load (see figure below). Finer particles with a weight that can be carried by the fluid (water) are transported as suspended load. Coarser particles rolling, sliding, and jumping on the channel bed are transported as bed load. There is another type of transport, the so-called wash load, which is finer than the coarse bed load, but too heavy (large) to be transported in suspension ([Einstein 1950](http://dx.doi.org/10.22004/ag.econ.156389)).
 ![transport](https://github.com/Ecohydraulics/media/raw/master/png/sediment-transport.png)
 
-In the following, we will look at the bed load transport mode. In this case, a sediment particle located in or on the riverbed is mobilized by shear forces of the water as soon as they exceed a critical value (see figure below). In river hydraulics, the so-called dimensionless bed shear stress or *Shields* stress ([Shields 1936](http://resolver.tudelft.nl/uuid:61a19716-a994-4942-9906-f680eb9952d6)) is often used as threshold value for the mobilization of sediment from the riverbed. This exercise uses one of the dimensionless bed shear stress approaches and the next section provides more explanations.
+In the following, we will look at the bed load transport mode. In this case, a sediment particle located in or on the riverbed is mobilized by shear forces of the water as soon as they exceed a critical value (see figure below). In river hydraulics, the so-called dimensionless bed shear stress or *Shields* stress ([Shields 1936](http://resolver.tudelft.nl/uuid:61a19716-a994-4942-9906-f680eb9952d6)) is often used as the threshold value for the mobilization of sediment from the riverbed. This exercise uses one of the dimensionless bed shear stress approaches and the next section provides more explanations.
 
 ![uptake](https://github.com/Ecohydraulics/media/raw/master/png/sediment-uptake.png)
 
 
 ### The Meyer-Peter and Müller (1948) formula <a name="mpm"></a>
 
-The [Meyer-Peter & Müller (1948)](http://resolver.tudelft.nl/uuid:4fda9b61-be28-4703-ab06-43cdc2a21bd7) formula for estimating bed load transport was published by Swiss researchers Eugen Meyer-Peter (founder of the famous [*Laboratory of Hydraulics, Hydrology and Glaciology (VAW)*](https://vaw.ethz.ch/en/)) and Robert Müller. Their study began one year after the establishment of the *VAW* in 1931, when Robert Müller was appointed assistant to Eugen Meyer-Peter. The two scientists worked in collaboration with Henry Favre and Albert Einstein's son Hans Albert. In 1934, the laboratory published for the first time a formula for the calculation of bed load transport and its fundamental relationship between observed *&tau;<sub>x</sub>* and critical *&tau;<sub>x,cr</sub>* dimensionless bed shear stresses is used until today. The dimensionless bed load transport rate *&Phi;* according to [Meyer-Peter & Müller (1948)](http://resolver.tudelft.nl/uuid:4fda9b61-be28-4703-ab06-43cdc2a21bd7) is: <a name="phi"></a>
+The [Meyer-Peter & Müller (1948)](http://resolver.tudelft.nl/uuid:4fda9b61-be28-4703-ab06-43cdc2a21bd7) formula for estimating bed load transport was published by Swiss researchers Eugen Meyer-Peter (founder of the famous [*Laboratory of Hydraulics, Hydrology and Glaciology (VAW)*](https://vaw.ethz.ch/en/)) and Robert Müller. Their study began one year after the establishment of the *VAW* in 1931 when Robert Müller was appointed assistant to Eugen Meyer-Peter. The two scientists worked in collaboration with Henry Favre and Albert Einstein's son Hans Albert. In 1934, the laboratory published for the first time a formula for the calculation of bed load transport and its fundamental relationship between observed *&tau;<sub>x</sub>* and critical *&tau;<sub>x,cr</sub>* dimensionless bed shear stresses is used until today. The dimensionless bed load transport rate *&Phi;* according to [Meyer-Peter & Müller (1948)](http://resolver.tudelft.nl/uuid:4fda9b61-be28-4703-ab06-43cdc2a21bd7) is: <a name="phi"></a>
 
  *&Phi; &asymp; 8 · (&tau;<sub>x</sub> - &tau;<sub>x,cr</sub>)<sup>3/2</sup>*
 
@@ -58,7 +58,7 @@ The *Meyer-Peter & Müller* formula applies (like any other sediment transport f
 * 0.25 < *s* < 3.2
 
 The dimensionless expression for bed load *&Phi;* was used to enable information transfer between different channels across scales by preserving geometric, kinematic and dynamic similarity. The set of dimensionless parameters used results from  [Buckingham's *&Pi;* theorem](https://pint.readthedocs.io/en/stable/pitheorem.html).
-Therefore, in order to add dimensions to *&Phi;*, it needs to be multiplied with the same set of parameters used for deriving the dimensionless expression from *Meyer-Peter & Müller*. Their set of parameters involves the characteristic grain size *D<sub>char</sub>*, the grain density *&rho;<sub>s</sub>*, and the gravitational acceleration *g*. Thus, the dimensional unit bed load is (in kg/s and meter width, i.e., kg/(s·m)): <a name="qb"></a>
+Therefore, to add dimensions to *&Phi;*, it needs to be multiplied with the same set of parameters used for deriving the dimensionless expression from *Meyer-Peter & Müller*. Their set of parameters involves the characteristic grain size *D<sub>char</sub>*, the grain density *&rho;<sub>s</sub>*, and the gravitational acceleration *g*. Thus, the dimensional unit bed load is (in kg/s and meter width, i.e., kg/(s·m)): <a name="qb"></a>
 
 *q<sub>b</sub> = &Phi; · ((s-1) · g · D<sub>char</sub><sup>3</sup>)<sup>1/2</sup> · &rho;<sub>s</sub>*
 
@@ -73,11 +73,11 @@ where *b<sub>eff</sub>* is the hydraulically active channel width of the flow cr
 ## Code
 
 ### Set the frame
-The object oriented code will use custom classes that we will call within a **`main.py`** script. Create the following **additional scripts**, which will contain the custom classes and functions to control logging.
+The object-oriented code will use custom classes that we will call within a **`main.py`** script. Create the following **additional scripts**, which will contain the custom classes and functions to control logging.
 
 * `fun.py` will contain logging functions.
 * `hec.py` will contain a `HecSet` class to read hydraulic output data from *HEC-RAS* as structured objects.
-* `grains.py` will contain a `GrainReader` class to read grain size class information as structured  objects.
+* `grains.py` will contain a `GrainReader` class to read grain size class information as structured objects.
 * `bedload.py` will contain the class `BedCore` with basic elements that most bed load formulae have in common.
 * `mpm.py` will contain the class `MPM`, which inherits from `BedCore` and calculates bed load as above described (Meyer-Peter & Müller 1948).
 
@@ -184,7 +184,7 @@ The `get_grain_data` method should look like this for reading the provided grain
                                         sep=self.sep,
                                         index_col=["classes"])
 ```
->   *Bonus Task*: Add a `__call__()` method to the `GrainReader` class.
+>   *Bonus*: Add a `__call__()` method to the `GrainReader` class.
 
 Implement the instantiation of a `GrainReader` object in the `main.py` script in the `get_char_grain_size` function. The function should receive the *string*-type arguments `file_name` (here: `"grains.csv"`) and `D_char` (i.e., the characteristic grain size to use from `grains.csv`). The `main()` function calls the `get_char_grain_size` function with the arguments `file_name=os.path.abspath("..") + "\\grains.csv"` and `D_char="D84"` (corresponds to the first column in `grains.csv`).
 
@@ -439,7 +439,7 @@ def main():
 ``` 
 
 ## Launch and debug
-Using [*PyCharm*](https://hydro-informatics.github.io/hy_ide.html#pycharm), right-click in the `main.py` script and click `> Run 'main'`. If the script crashes or raises error messages, trace them back and fix the issues. Add `try` - `except` statements where necessary and recall the [debugging instructions](https://hydro-informatics.github.io/hypy_pyerror.html).
+Using [*PyCharm*](https://hydro-informatics.github.io/hy_ide.html#pycharm), right-click in the `main.py` script and click `> Run 'main'`. If the script crashes or raises error messages, trace them back, and fix the issues. Add `try` - `except` statements where necessary and recall the [debugging instructions](https://hydro-informatics.github.io/hypy_pyerror.html).
 
 >   ***Note:*** The program intentionally produces warning messages because some of the profile characteristics do not fulfill the Meyer-Peter & Müller formula's validity range.
 
@@ -459,7 +459,7 @@ A successful run of `main.py` produces a `bed_load_mpm.xlsx` file that looks lik
 | 9  | 1893.37   | HQ100    | 25       | 0.297767546 | 31.25225316 |
 | ...| ...   | ...   | ...        | ...           | ...           | 
 
-The logfile should look similar like this:
+The logfile should look similar to this:
 
 ```text
 [20XX-XX-XX 14:08:22,900] PROCESSING PROFILE 1970.1 FOR SCENARIO Q mean
