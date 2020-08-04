@@ -184,7 +184,7 @@ The `get_grain_data` method should look like this for reading the provided grain
                                         sep=self.sep,
                                         index_col=["classes"])
 ```
->   *Bonus*: Add a `__call__()` method to the `GrainReader` class.
+>   ***Bonus***: Add a `__call__()` method to the `GrainReader` class.
 
 Implement the instantiation of a `GrainReader` object in the `main.py` script in the `get_char_grain_size` function. The function should receive the *string*-type arguments `file_name` (here: `"grains.csv"`) and `D_char` (i.e., the characteristic grain size to use from `grains.csv`). The `main()` function calls the `get_char_grain_size` function with the arguments `file_name=os.path.abspath("..") + "\\grains.csv"` and `D_char="D84"` (corresponds to the first column in `grains.csv`).
 
@@ -482,6 +482,9 @@ The logfile should look similar to this:
 [20XX-XX-XX 14:08:22,904] Warning: Discharge out of validity range.
 [...]
 ```
+
+
+>   ***Note***: There are many possible solutions to this exercise and any solution that results in the same outcome (workbook and logfile) is valid. The key challenge is to use an object-oriented approach with at least one class inheriting from another class.
 
 
 -------------- -----------------------------------------
