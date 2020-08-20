@@ -1,4 +1,7 @@
-### Python Programming in Water Resources Engineering and Research
+### Python Programming for Water Resources Engineering and Research
+
+![rhone](https://github.com/Ecohydraulics/media/raw/master/jpg/arbogne.jpg)
+*<sub>The Argbogne River in Switzerland (source: Sebastian Schwindt 2013).</sub>*
 
 ***
 
@@ -7,6 +10,15 @@
 >	***Background***: Sediment transport drives and is driven by morphodynamic pattern of fluvial systems. Alas, dozens of (semi-) empiric sediment transport formulae for estimating one-dimensional (1D) cross-section averaged transport rates are used in two-dimensional numerical models with unknown models uncertainty. 
 
 >   ***Goals***: This exercise features the application of the Meyer-Peter & Müller (1948) bed load transport formulae to a valid application: 1D, cross-section averaged hydraulics. Write object-oriented code with custom classes for tailored interactions with *xlsx* workbooks. The homework involves using built-in methods of *pandas* data frames and plotting.
+
+>   ***Requirements***: *Python* libraries: *numpy* and *pandas*. Read and understand the [data handling with *numpy* and *pandas*](https://hydro-informatics.github.io/hypy_pynum.html), as well as [object orientation](https://hydro-informatics.github.io/hypy_classes.html).
+
+Get ready by cloning the exercise repository:
+
+```
+git clone https://github.com/Ecohydraulics/Exercise-SedimentTransport.git
+```
+
 
 ## Theory
 
