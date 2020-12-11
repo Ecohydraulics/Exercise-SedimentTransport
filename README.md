@@ -302,7 +302,7 @@ class BedCore:
 
 >   ***Note:*** Import `fun` (the script with logging functions) to enable the usage of `logging.warning(...)` messages in the methods of `BedCore` and its child classes.
 
-Add a method to convert the dimensionless bed load transport *&Phi;* into a dimensional value (kg/s). In addition to the variables defined in the `__init__` method, the `add_dimensions` method will require the effective channel width *b<sub>eff</eff>* ([recall the above descriptions](#qb)):
+Add a method to convert the dimensionless bed load transport *&Phi;* into a dimensional value (kg/s). In addition to the variables defined in the `__init__` method, the `add_dimensions` method will require the effective channel width *b<sub>eff</sub>* ([recall the above descriptions](#qb)):
 
 ```python
     def add_dimensions(self, b):
@@ -326,7 +326,7 @@ Many bed load transport formulae involve the dimensionless bed shear stress [*&t
 
 ### Write a Meyer-Peter & Müller bed load assessment class
 
-Create a new script (e.g., `mpm.py`) and implement a `MPM` class (**M**eyer-**P**eter & **M**üller) that inherits from the `BedCore` class. The `__init__` method of `MPM` should initialize `BedCore` and overwrite relevant parameters to the calculation of bed load according to Meyer-Peter & Müller (1948). Moreover, the initialization of an `MPM` object should go along with a check of the validity and the calculation of the dimensionless bed load transport *&Phi;* ([see above explanations](#mpm)):
+Create a new script (e.g., `mpm.py`) and implement a `MPM` class (**M**eyer-**P**eter & **M**üller) that inherits from the `BedCore` class. The `__init__` method of `MPM` should initialize `BedCore` and overwrite (recall [Polymorphism](https://hydro-informatics.github.io/hypy_classes.html#polymorphism)) relevant parameters to the calculation of bed load according to Meyer-Peter & Müller (1948). Moreover, the initialization of an `MPM` object should go along with a check of the validity and the calculation of the dimensionless bed load transport *&Phi;* ([see above explanations](#mpm)):
 
 ```python
 from bedload import *
@@ -396,12 +396,12 @@ from mpm import *
 def calculate_mpm(hec_df, D_char):
     # create dictionary with relevant information about bed load transport with void lists
     mpm_dict = {
-                "River Sta": [],
-                "Scenario": [],
-                "Q (m3/s)": [],
-                "Phi (-)": [],
-                "Qb (kg/s)": []
-                }
+            "River Sta": [],
+            "Scenario": [],
+            "Q (m3/s)": [],
+            "Phi (-)": [],
+            "Qb (kg/s)": []
+    }
 
     # extract relevant hydraulic data from HEC-RAS output file
     Froude = hec_df["Froude # Chl"]
@@ -430,7 +430,7 @@ def calculate_mpm(hec_df, D_char):
     return pd.DataFrame(mpm_dict)
 ```
  
-Having defined the `calculate_mpm` function, the call to that function from the `main()` function should now assign a *pandas* data frame to the `mpm_results` variable. To finalize the script, write `mpm_results` to a workbook (e.g., `"bed_load_mpm.xlsx"`) in the `main()` function:
+Having defined the `calculate_mpm()` function, the call to that function from the `main()` function should now assign a *pandas* data frame to the `mpm_results` variable. To finalize the script, write `mpm_results` to a workbook (e.g., `"bed_load_mpm.xlsx"`) in the `main()` function:
 
 ```python
 # main.py
@@ -500,21 +500,13 @@ The logfile should look similar to this:
 
 
 -------------- -----------------------------------------
-**HOMEWORK 1:**  Implement the 
-                [*Parker-Wong*](https://doi.org/10.1061/(ASCE)0733-9429(2006)132:11(1159)) correction 
-                for the *Meyer-Peter & Müller* formula:
-                *&Phi;<sub>pw</sub> &asymp; 4.93 · (&tau;<sub>x</sub> - &tau;<sub>x,cr</sub>)<sup>1.6</sup>*. Implement the formula in the `MPM` class either use an optional keyword argument in `compute_phi` or a new method.
+**HOMEWORK 1:**  Implement the [*Parker-Wong*](https://doi.org/10.1061/(ASCE)0733-9429(2006)132:11(1159)) correction for the *Meyer-Peter & Müller* formula: *&Phi;<sub>pw</sub> &asymp; 4.93 · (&tau;<sub>x</sub> - &tau;<sub>x,cr</sub>)<sup>1.6</sup>*. Implement the formula in the `MPM` class either use an optional keyword argument in `compute_phi` or a new method.
+                
+-------------- -----------------------------------------
+**HOMEWORK 2:**  Use the `openpyxl` library to add a background color to the headers of output tables.
+
+-------------- -----------------------------------------
+**HOMEWORK 3:**  Choose and extract 3 profiles from `mpm_results` and plot the dimensional bed load transport *Q<sub>b</sub>* (y-axis) against the discharge *Q* (x-axis).
                 
 -----------------------------------------------------------
 
--------------- -----------------------------------------
-**HOMEWORK 2:**  Use the `openpyxl` library to add a
-                    background color to the headers of output tables.
-                
------------------------------------------------------------
-
--------------- -----------------------------------------
-**HOMEWORK 3:**  Choose and extract 3 profiles from 
-                    `mpm_results` and plot the dimensional bed load transport *Q<sub>b</sub>* (y-axis) against the discharge *Q* (x-axis).
-                
------------------------------------------------------------
