@@ -7,7 +7,7 @@
 
 ## Exercise: One-dimensional (1d) cross-section-averaged sediment transport
 
->	***Background***: Sediment transport drives and is driven by morphodynamic pattern of fluvial systems. Alas, dozens of (semi-) empiric sediment transport formulae for estimating one-dimensional (1D) cross-section averaged transport rates are used in two-dimensional numerical models with unknown models uncertainty.
+>	***Background***: Sediment transport drives and is driven by the morphodynamic pattern of fluvial systems. Alas, dozens of (semi-) empiric sediment transport formulae for estimating one-dimensional (1D) cross-section averaged transport rates are used in two-dimensional numerical models with unknown model uncertainty.
 
 >   ***Goals***: This exercise features the application of the Meyer-Peter & Müller (1948) *bedload* transport formulae to a valid application: 1d, cross-section averaged hydraulics. Write object-oriented code with custom classes for tailored interactions with *xlsx* workbooks. The homework involves using built-in methods of *pandas* data frames and plotting.
 
@@ -37,15 +37,15 @@ where
 
 ![FlowCrossSection](https://github.com/Ecohydraulics/media/raw/main/png/flow-cs.png)
 
-This exercise uses one-dimensional (1D) cross-section averaged hydraulic data produced with the US Army Corps of Engineers' [HEC-RAS](https://www.hec.usace.army.mil/software/hec-ras/) software, which solves the Manning-Strickler formula numerically for any flow cross-section shape. In this exercise, *HEC-RAS* provides the hydraulic data needed to determine the sediment transport capacity of a channel cross-section, although no explanations for creating, running, and exporting data from *HEC-RAS* models are given.
+This exercise uses one-dimensional (1D) cross-section averaged hydraulic data produced with the US Army Corps of Engineers [HEC-RAS](https://www.hec.usace.army.mil/software/hec-ras/) software, which solves the Manning-Strickler formula numerically for any flow cross-section shape. In this exercise, *HEC-RAS* provides the hydraulic data needed to determine the sediment transport capacity of a channel cross-section, although no explanations for creating, running, and exporting data from *HEC-RAS* models are given.
 
 ### Sediment Transport
 
-Fluvial sediment transport can be distinguished into two modes: (1) suspended load and (2) bed load (see figure below). Finer particles with a weight that can be carried by the fluid (water) are transported as suspended load. Coarser particles rolling, sliding, and jumping on the channel bed are transported as bed load. There is another type of transport, the so-called wash load, which is finer than the coarse bed load, but too heavy (large) to be transported in suspension ([Einstein 1950](http://dx.doi.org/10.22004/ag.econ.156389)).
+Fluvial sediment transport can be distinguished into two modes: (1) suspended load and (2) bed load (see figure below). Finer particles with a weight that can be carried by the fluid (water) are transported as suspended load. Coarser particles rolling, sliding, and jumping on the channel bed are transported as bedload. There is another type of transport, the so-called wash load, which is finer than the coarse bed load, but too heavy (large) to be transported in suspension ([Einstein 1950](http://dx.doi.org/10.22004/ag.econ.156389)).
 
 ![transport](https://github.com/Ecohydraulics/media/raw/main/png/sediment-transport.png)
 
-In the following, we will look at the bed load transport mode. In this case, a sediment particle located in or on the riverbed is mobilized by shear forces of the water as soon as they exceed a critical value (see figure below). In river hydraulics, the so-called dimensionless bed shear stress or *Shields* stress ([Shields 1936](http://resolver.tudelft.nl/uuid:61a19716-a994-4942-9906-f680eb9952d6)) is often used as the threshold value for the mobilization of sediment from the riverbed. This exercise uses one of the dimensionless bed shear stress approaches and the next section provides more explanations.
+In the following, we will look at the bed load transport mode. In this case, a sediment particle located in or on the riverbed is mobilized by the shear forces of the water as soon as they exceed a critical value (see figure below). In river hydraulics, the so-called dimensionless bed shear stress or *Shields* stress ([Shields 1936](http://resolver.tudelft.nl/uuid:61a19716-a994-4942-9906-f680eb9952d6)) is often used as the threshold value for the mobilization of sediment from the riverbed. This exercise uses one of the dimensionless bed shear stress approaches and the next section provides more explanations.
 
 ![uptake](https://github.com/Ecohydraulics/media/raw/main/png/sediment-uptake.png)
 
@@ -90,7 +90,7 @@ The object-oriented code will use custom classes that we will call within a **`m
 * `fun.py` will contain logging functions.
 * `hec.py` will contain a `HecSet` class to read hydraulic output data from *HEC-RAS* as structured objects.
 * `grains.py` will contain a `GrainReader` class to read grain size class information as structured objects.
-* `bedload.py` will contain the class `BedCore` with basic elements that most bed load formulae have in common.
+* `bedload.py` will contain the class `BedCore` with basic elements that most bedload formulae have in common.
 * `mpm.py` will contain the class `MPM`, which inherits from `BedCore` and calculates bed load as above described (Meyer-Peter & Müller 1948).
 
 We will create the classes and functions in the indicated scripts according to the following flow chart:
@@ -176,7 +176,7 @@ Now, we can log messages at different levels (info, warning, error, or others) i
 
 Sediment grain size classes (ranging from *D<sub>16</sub>* to *D<sub>max</sub>*) are provided in the file [`grains.csv`](https://github.com/Ecohydraulics/Exercise-SedimentTransporta/raw/main/grains.csv) (`delimiter=","`) and can be customized.
 
-Write a `GrainReader` class that uses *pandas*' `read_csv` method to read the grain size distribution from `grains.csv`. Write the class in a separate *Python* script (e.g., `grains.py` as indicated in the above figure):
+Write a `GrainReader` class that uses *pandas* `read_csv` method to read the grain size distribution from `grains.csv`. Write the class in a separate *Python* script (e.g., `grains.py` as indicated in the above figure):
 
 ```python
 class GrainReader:
@@ -232,7 +232,7 @@ The provided *HEC-RAS* dataset is stored in an *xlsx* workbook ([`HEC-RAS/output
 | Col. 05 | E  | Min Ch El  | [m a.s.l.]  | Minimum elevation (level) of channel cross-section           |
 | Col. 06 | F  | W.S. Elev  | [m a.s.l.]  | Water surface elevation (level)           |
 | Col. 07 | G  | Vel Chnl   | [m]  | Flow velocity main channel   |
-| Col. 08 | H  | Flow Area   | [m²]  | Wetted cross section area *A* (see above)   |
+| Col. 08 | H  | Flow Area   | [m²]  | Wetted cross-section area *A* (see above)   |
 | Col. 09 | I  | Froude\# Chl    | [-] | *Froude number* of the channel (if 1, computation error do - not use!) |
 | Col. 10 | J  | Hydr Radius        | [m]  | Hydraulic radius  |
 | Col. 11 | K  | Hydr Depth        | [m]  | Water depth (active cross-section average)   |
@@ -325,7 +325,7 @@ Many bed load transport formulae involve the dimensionless bed shear stress [*&t
 
 ### Write a Meyer-Peter & Müller Bedload Assessment Class
 
-Create a new script (e.g., `mpm.py`) and implement a `MPM` class (**M**eyer-**P**eter & **M**üller) that inherits from the `BedCore` class. The `__init__` method of `MPM` should initialize `BedCore` and overwrite (recall [Polymorphism](https://hydro-informatics.github.io/hypy_classes.html#polymorphism)) relevant parameters to the calculation of bed load according to Meyer-Peter & Müller (1948). Moreover, the initialization of an `MPM` object should go along with a check of the validity and the calculation of the dimensionless bed load transport *&Phi;* ([see above explanations](#mpm)):
+Create a new script (e.g., `mpm.py`) and implement an `MPM` class (**M**eyer-**P**eter & **M**üller) that inherits from the `BedCore` class. The `__init__` method of `MPM` should initialize `BedCore` and overwrite (recall [Polymorphism](https://hydro-informatics.github.io/hypy_classes.html#polymorphism)) relevant parameters to the calculation of bed load according to Meyer-Peter & Müller (1948). Moreover, the initialization of an `MPM` object should go along with a check of the validity and the calculation of the dimensionless bed load transport *&Phi;* ([see above explanations](#mpm)):
 
 ```python
 from bedload import *
@@ -355,7 +355,7 @@ Add the `check_validity` method to verify if the provided cross-section characte
             logging.warning('Warning: Slope out of validity range.')
         if (self.D < 0.0004) or (self.D > 0.0286):
             logging.warning('Warning: Grain size out of validity range.')
-        if (self.Q / self.h < 0.002) or (self.Q / self.h > 2.0):
+        if ((self.u * self.h) < 0.002) or ((self.u * self.h) > 2.0):
             logging.warning('Warning: Discharge out of validity range.')
         if (self.s < 0.25) or (self.s > 3.2):
             logging.warning('Warning: Relative grain density (s) out of validity range.')
@@ -382,7 +382,7 @@ To calculate dimensionless bed load transport *&Phi;* according to Meyer-Peter &
 
 With the `MPM` class defined, we can now fill the `calculate_mpm` function in the `main.py` script. The function should create a *pandas* data frame with columns of dimensionless bed load transport *&Phi;* and dimensional bed load transport *Q<sub>b</sub>* associated with a channel profile (`"River Sta"`) and flow scenario (`"Profile" > "Scenario"`).
 
-The following code block illustrates an example for the `calculate_mpm` function that creates the *pandas* data frame from a *dictionary* (`mpm_dict`). The illustrative function creates the *dictionary* with void value lists, extracts hydraulic data from the *HEC-RAS* data frame, and loops over the `"River Sta"` entries. The loop checks if the `"River Sta"` entries are valid (i.e., not "Nan") because empty rows that *HEC-RAS* automatically adds between output profiles should not be analyzed. If the check was successful, the loop appends the profile, scenario, and discharge directly to `mpm_dict`. The section-wise bed load transport results from `MPM` objects. After the loop, the function returns `mpm_dict` as a `pd.DataFrame` object.
+The following code block illustrates an example of the `calculate_mpm` function that creates the *pandas* data frame from a *dictionary* (`mpm_dict`). The illustrative function creates the *dictionary* with void value lists, extracts hydraulic data from the *HEC-RAS* data frame, and loops over the `"River Sta"` entries. The loop checks if the `"River Sta"` entries are valid (i.e., not "Nan") because empty rows that *HEC-RAS* automatically adds between output profiles should not be analyzed. If the check was successful, the loop appends the profile, scenario, and discharge directly to `mpm_dict`. The section-wise bed load transport results from `MPM` objects. After the loop, the function returns `mpm_dict` as a `pd.DataFrame` object.
 
 ```python
 # main.py
